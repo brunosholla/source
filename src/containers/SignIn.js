@@ -3,6 +3,7 @@ import {Button, Checkbox, Form, Icon, Input, message} from "antd";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
+
 import {
   hideMessage,
   showAuthLoader,
@@ -39,6 +40,7 @@ class SignIn extends React.Component {
       this.props.history.push('/');
     }
   }
+
 
   render() {
     const {getFieldDecorator} = this.props.form;

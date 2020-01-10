@@ -1,14 +1,24 @@
 import firebase from "firebase";
 
 // Initialize Firebase
-const config = {
+/*const config = {
   apiKey: "AIzaSyAz-GPfA-hN74oFh3XvXsF9vQrlE5xpU10",
   authDomain: "wieldy-4f59c.firebaseapp.com",
   databaseURL: "https://wieldy-4f59c.firebaseio.com",
   projectId: "wieldy-4f59c",
   storageBucket: "wieldy-4f59c.appspot.com",
   messagingSenderId: "81949884261"
+};*/
+
+const config = {
+  apiKey: "AIzaSyC2yflA7WHukLAoJpo2l_uvJuNhobuPzic",
+  authDomain: "restaurant-2e334.firebaseapp.com",
+  databaseURL: "https://restaurant-2e334.firebaseio.com",
+  projectId: "restaurant-2e334",
+  storageBucket: "restaurant-2e334.appspot.com",
+  messagingSenderId: "54815075448"
 };
+
 
 firebase.initializeApp(config);
 const auth = firebase.auth();

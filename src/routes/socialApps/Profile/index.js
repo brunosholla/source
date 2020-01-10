@@ -11,14 +11,44 @@ import Friends from "../../../components/profile/Friends/index";
 import Photos from "../../../components/profile/Photos/index";
 import Auxiliary from "../../../util/Auxiliary";
 import ProfileHeader from "../../../components/profile/ProfileHeader/index";
+import firebase from "firebase";
+
+const db = firebase.firestore();
+
 
 
 class Profile extends Component {
 
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.state={
+      profileUrl:null
+    }
+  }
+
+  componentDidMount() {
+
+    const images = firebase.storage().ref().child('items');
+    const image = images.child('unnamed.jpg');
+    image.getDownloadURL().then((url) => { this.setState({profileUrl:url})});
+
+    db.collection("/items")
+      .get()
+      .then(querySnapshot => {
+        const data = querySnapshot.docs.map(doc => doc.data());
+        console.log(data); // array of cities objects
+      });
+
+  }
+
+
   render() {
     return (
       <Auxiliary>
-        <ProfileHeader/>
+        {this.state.profileUrl?<ProfileHeader profileUrl={this.state.profileUrl}/>:<></>}
+
         <div className="gx-profile-content">
           <Row>
             <Col xl={16} lg={14} md={14} sm={24} xs={24}>

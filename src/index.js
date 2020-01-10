@@ -17,6 +17,7 @@ const render = Component => {
   );
 };
 
+
 // Do this once
 registerServiceWorker();
 
