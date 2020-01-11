@@ -34,8 +34,8 @@ const database = firebase.database();
 const db = firebase.firestore();
 db.settings({timestampsInSnapshots: true});
 
-/*const categories=data.map(d=>d.category)
-console.log(categories);*/
+
+
 const getAllDataFromDB = async (table) => {
     const res = await db.collection(`/${table}`).get()
         .then(querySnapshot => {
@@ -47,7 +47,6 @@ const getAllDataFromDB = async (table) => {
 const getDataByCategoryFromDB = async (table,category) => {
     const res = await db.collection(`/${table}`).where("category","==",category).get()
         .then(querySnapshot => {
-            console.log(querySnapshot)
             return querySnapshot.docs.map(doc => doc.data());
         });
     return res;
@@ -71,12 +70,14 @@ const loadImageFromStorage = async (filePath) => {
 
 
 /*
+let categories=data.map(d=>d.category)
+categories=Array.from(new Set(categories))
 categories.map(d=>{
     //console.log(d)
-    db.collection('/category').add({name:d});
+    db.collection('/categories').add({name:d});
 })
-*/
 
+*/
 
 
 

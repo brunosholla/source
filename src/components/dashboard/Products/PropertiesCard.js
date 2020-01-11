@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Component} from "react";
 import {Radio, Row} from "antd";
 
 import Widget from "components/Widget/index";
@@ -11,7 +11,7 @@ import {getAllDataFromDB, getDataByCategoryFromDB} from "../../../firebase/fireb
 const popularData = data;
 
 
-class PropertiesCard extends React.Component {
+class PropertiesCard extends Component {
     state = {
         popular: [],
         loader: false,
@@ -32,7 +32,7 @@ class PropertiesCard extends React.Component {
     };
 
     componentDidMount() {
-        getAllDataFromDB('category').then(categories => {
+        getAllDataFromDB('categories').then(categories => {
             this.setState({categories, loader: false})
         })
     }
