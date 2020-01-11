@@ -8,6 +8,7 @@ const Dashboard = ({match}) => (
     <Route path={`${match.url}/crm`} component={asyncComponent(() => import('./CRM/index'))}/>
     <Route path={`${match.url}/crypto`} component={asyncComponent(() => import('./Crypto/index'))}/>
     <Route path={`${match.url}/listing`} component={asyncComponent(() => import('./Listing/index'))}/>
+    <Route path={`${match.url}/products`} component={asyncComponent(() => import('./Products/index'))}/>
   </Switch>
 );
 

@@ -4,6 +4,7 @@
   "sidebar.dashboard": "Dashboard",
   "sidebar.layouts": "Layouts",
   "sidebar.dashboard.crm": "Crm",
+  "sidebar.dashboard.products":"Products",
   "sidebar.components": "Components",
   "sidebar.components.general": "General",
   "sidebar.general.button": "Button",
