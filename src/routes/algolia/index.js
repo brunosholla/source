@@ -3,7 +3,7 @@ import {Layout} from "antd";
 import {Configure, connectHits, connectStateResults, InstantSearch, Pagination, Stats,} from 'react-instantsearch-dom';
 import {withUrlSync} from './urlSync';
 import 'instantsearch.css/themes/algolia.css';
-//import './style.css'
+import './style.css'
 import Header from "./Header";
 import Sidebar from "./SideBar";
 import Footer from "./Footer";
@@ -20,7 +20,7 @@ const App = props => (
                  createURL={props.createURL}
                  onSearchStateChange={props.onSearchStateChange}>
 
-    <Configure hitsPerPage={16}/>
+    <Configure hitsPerPage={116}/>
 
     <Layout className="gx-algolia-layout-has-sider">
       <Sidebar/>

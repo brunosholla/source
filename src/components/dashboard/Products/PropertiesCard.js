@@ -1,61 +1,85 @@
 import React from "react";
-import {Radio} from "antd";
+import {Radio, Row} from "antd";
 
 import Widget from "components/Widget/index";
 import {data} from "../../../firebase/g/data"
 import CircularProgress from "components/CircularProgress";
 import PropertiesItemCard from "./PropertiesItemCard";
+import {getAllDataFromDB, getDataByCategoryFromDB} from "../../../firebase/firebase";
 
 
 const popularData = data;
 
 
 class PropertiesCard extends React.Component {
-  state = {
-    popular: [],
-    loader: false,
-  };
+    state = {
+        popular: [],
+        loader: false,
+        categories:[]
+    };
 
-  handleChange = (e) => {
-    const value = e.target.value;
-    this.setState({
-      popular: popularData[value],
-      loader: true
-    });
-    setTimeout(() => {
-      this.setState({loader: false});
-    }, 1500);
-  };
+    handleChange = (e) => {
+        const value = e.target.value;
+        this.setState({loader: true})
+        getDataByCategoryFromDB('products',value).then(products => {
+            this.setState({
+                popular:products,
+                loader: false
+            });
+        })
 
-  componentDidMount(){
 
-  }
-  render() {
-    const {loader, popular} = this.state;
-    return (
-      <Widget>
-        <div className="ant-row-flex gx-justify-content-between gx-mb-3 gx-mb-sm-4 gx-dash-search">
-          <h2 className="h4 gx-mb-3 gx-mb-sm-1 gx-mr-2">Properties</h2>
-          <div className="gx-mx-sm-2">
-            <Radio.Group className="gx-radio-group-link gx-radio-group-link-bg-light" defaultValue={0}
-                         onChange={this.handleChange}>
-              <Radio.Button value={0} className="gx-mb-2">Popular</Radio.Button>
-              <Radio.Button value={1} className="gx-mb-2">New Jersy</Radio.Button>
-              <Radio.Button value={2} className="gx-mb-2">Colorado</Radio.Button>
-              <Radio.Button value={3} className="gx-mb-2">Albama</Radio.Button>
-            </Radio.Group>
-          </div>
-          <span className="gx-ml-2 gx-search-icon"><i
-            className="icon icon-search-new gx-pointer gx-text-primary gx-fs-xxl"/></span>
-        </div>
+    };
 
-        {loader ? <CircularProgress className="gx-loader-400"/> : popular.map((data, index) =>
-          <PropertiesItemCard key={index} data={data}/>
-        )}
+    componentDidMount() {
+        getAllDataFromDB('category').then(categories => {
+            this.setState({categories, loader: false})
+        })
+    }
 
-      </Widget>
-    );
-  }
+    render() {
+        const {loader, popular,categories} = this.state;
+
+        let allProducts=[]
+        if (!loader) {
+            const length = popular.length
+            for (let i = 0; i < length; i++) {
+                let product = []
+                if (i % 3 === 0) {
+                    let breakLine = i + 3 < length ? i + 3 : length
+
+                    for (let j = i; j < breakLine; j++)
+                        product.push(<PropertiesItemCard key={j} data={popular[j]}/>)
+
+                }
+                allProducts.push(<Row key={i}>{product.map(d=> d)}</Row>)
+            }
+        }
+
+        return (
+            <Widget>
+                <div className="ant-row-flex gx-justify-content-between gx-mb-3 gx-mb-sm-4 gx-dash-search">
+                    <h2 className="h4 gx-mb-3 gx-mb-sm-1 gx-mr-2">Properties</h2>
+                    <div className="gx-mx-sm-2">
+                        <Radio.Group className="gx-radio-group-link gx-radio-group-link-bg-light" defaultValue={0}
+                                     onChange={this.handleChange}>
+                            {
+                                categories.map((category,index)=>{
+                                    return  <Radio.Button key={index} value={category.name} className="gx-mb-2">{category.name}</Radio.Button>
+                                })
+                            }
+
+                        </Radio.Group>
+                    </div>
+                    <span className="gx-ml-2 gx-search-icon"><i
+                        className="icon icon-search-new gx-pointer gx-text-primary gx-fs-xxl"/></span>
+                </div>
+
+                {loader ? <CircularProgress className="gx-loader-400"/> : allProducts.map(p=>p)}
+
+            </Widget>
+        );
+    }
 }
 
 export default PropertiesCard;
