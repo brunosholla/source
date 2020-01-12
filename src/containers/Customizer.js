@@ -381,10 +381,13 @@ class Customizer extends Component {
       '@body-background': '#f5f5f5',
       '@hor-nav-text-color': '#fffffd'
     };
+
     let vars = {};
 
     try {
       vars = Object.assign({}, initialValue, JSON.parse(localStorage.getItem('app-theme')));
+
+
     } finally {
       this.state = {vars, initialValue, isCustomizerOpened: false};
       window.less

@@ -1,6 +1,7 @@
 import React ,{Component} from "react";
-import {Card, Col, Row} from "antd";
+import {Card, Col, Row,Button,Divider,Icon} from "antd";
 import ReactToPrint from "react-to-print";
+import {printDiv} from "../../../util/customFunctions";
 
 const {Meta} = Card;
 
@@ -11,15 +12,18 @@ class PropertiesItemCard extends Component{
     }
 
     render(){
-    const {image, description, category, name, date, isFeatured, prize, sqft, bedrooms, baths, area, more, item, icons} = this.props.data;
+      //  console.log(this.props.data)
+    const {image, description, category, name, objectID, isFeatured, prize, sqft, bedrooms, baths, area, more, item, icons} = this.props.data;
     return (
 
-            <Col xl={8} lg={12} md={12} sm={24} xs={24}>
+            <Col xl={8} lg={12} md={12} sm={24} xs={24} id={objectID}>
                 <Card hoverable
                       cover={<img alt={description} src={image}/>}
 
+
                 >
                     <Meta
+                        avatar={<Button type="primary" shape="circle-outline" onClick={(e)=>printDiv(objectID)}>Ok</Button>}
                         title={name}
                         description={description}
                     />
