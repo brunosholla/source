@@ -72,9 +72,9 @@ const loadImageFromStorage = async (filePath) => {
 /*
 let categories=data.map(d=>d.category)
 categories=Array.from(new Set(categories))
-categories.map(d=>{
+data.map(d=>{
     //console.log(d)
-    db.collection('/categories').add({name:d});
+    db.collection('/products').add(d);
 })
 
 */

@@ -45,7 +45,6 @@ class PropertiesCard extends Component {
 
     render() {
         const {loader, popular, categories} = this.state;
-
         let allProducts = []
         let allCategories = null
         if (!loader) {
